@@ -15,32 +15,10 @@ limitations under the License.
 */
 
 import React from 'react';
-import { Kubes } from './Kubes';
-import { kubes } from './fixtures';
+import { render } from 'design/utils/testing';
+import { ConnectDialog } from './ConnectDialog.story';
 
-export default {
-  title: 'Teleport/Kubes',
-};
-
-export const Loaded = () => {
-  return <Kubes {...props} attempt={{ status: 'success' }} />;
-};
-
-export const Loading = () => {
-  return <Kubes {...props} attempt={{ status: 'processing' }} />;
-};
-
-export const Failed = () => {
-  return (
-    <Kubes
-      {...props}
-      attempt={{ status: 'failed', statusText: 'server error' }}
-    />
-  );
-};
-
-const props = {
-  kubes: kubes,
-  user: 'sam',
-  showButton: true,
-};
+test('kube connect dialogue', () => {
+  const { baseElement } = render(<ConnectDialog />);
+  expect(baseElement).toMatchSnapshot();
+});

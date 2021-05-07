@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { sortBy } from 'lodash';
 import {
@@ -24,19 +24,21 @@ import {
   TextCell,
   SortTypes,
 } from 'design/DataTable';
-import { Label, Flex } from 'design';
+import { Label, Flex, ButtonBorder } from 'design';
 import Table from 'design/DataTable/Paged';
 import isMatch from 'design/utils/match';
 import { Kube } from 'teleport/services/kube';
 import InputSearch from 'teleport/components/InputSearch';
+import ConnectDialog from '../ConnectDialog';
 
 function KubeList(props: Props) {
-  const { kubes = [], pageSize = 20 } = props;
+  const { kubes = [], pageSize = 20, user } = props;
 
-  const [sortDir, setSortDir] = React.useState<Record<string, string>>({
+  const [sortDir, setSortDir] = useState<Record<string, string>>({
     name: SortTypes.DESC,
   });
-  const [searchValue, setSearchValue] = React.useState('');
+  const [searchValue, setSearchValue] = useState('');
+  const [kubeConnectName, setKubeConnectName] = useState('');
 
   function sortAndFilter(search) {
     const filtered = kubes.filter(obj =>
@@ -79,10 +81,42 @@ function KubeList(props: Props) {
           cell={<TextCell />}
         />
         <Column header={<Cell>Labels</Cell>} cell={<LabelCell />} />
+        <Column
+          header={<Cell />}
+          cell={
+            <ActionCell
+              onViewConnect={(name: string) => setKubeConnectName(name)}
+            />
+          }
+        />
       </StyledTable>
+      {kubeConnectName && (
+        <ConnectDialog
+          onClose={() => setKubeConnectName('')}
+          user={user}
+          kubeConnectName={kubeConnectName}
+        />
+      )}
     </>
   );
 }
+
+export const ActionCell = props => {
+  const { rowIndex, onViewConnect, data } = props;
+  const { name } = data[rowIndex];
+
+  return (
+    <Cell align="right">
+      <ButtonBorder
+        size="small"
+        onClick={() => onViewConnect(name)}
+        width="87px"
+      >
+        Connect
+      </ButtonBorder>
+    </Cell>
+  );
+};
 
 function LabelCell(props) {
   const { rowIndex, data } = props;
@@ -117,6 +151,7 @@ function searchAndFilterCb(
 type Props = {
   kubes: Kube[];
   pageSize?: number;
+  user: string;
 };
 
 export default KubeList;

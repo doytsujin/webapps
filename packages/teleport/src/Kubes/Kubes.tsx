@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 import React from 'react';
-import { Box, Indicator } from 'design';
+import { Box, Indicator, ButtonPrimary } from 'design';
 import { Danger } from 'design/Alert';
 import KubeList from 'teleport/Kubes/KubeList';
 import {
@@ -32,13 +32,27 @@ export default function Container() {
   return <Kubes {...state} />;
 }
 
+const docUrl =
+  'https://goteleport.com/docs/kubernetes-access';
+
 export function Kubes(props: State) {
-  const { kubes, attempt } = props;
+  const { kubes, attempt, user, showButton } = props;
 
   return (
     <FeatureBox>
       <FeatureHeader alignItems="center" justifyContent="space-between">
         <FeatureHeaderTitle>Kubernetes</FeatureHeaderTitle>
+        {showButton && (
+          <ButtonPrimary
+            as="a"
+            width="240px"
+            target="_blank"
+            href={docUrl}
+            rel="noreferrer"
+          >
+            View documentation
+          </ButtonPrimary>
+        )}
       </FeatureHeader>
       {attempt.status === 'failed' && <Danger>{attempt.statusText}</Danger>}
       {attempt.status === 'processing' && (
@@ -46,7 +60,7 @@ export function Kubes(props: State) {
           <Indicator />
         </Box>
       )}
-      {attempt.status === 'success' && <KubeList kubes={kubes} />}
+      {attempt.status === 'success' && <KubeList kubes={kubes} user={user} />}
     </FeatureBox>
   );
 }

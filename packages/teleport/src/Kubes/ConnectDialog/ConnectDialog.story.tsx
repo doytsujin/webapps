@@ -15,32 +15,18 @@ limitations under the License.
 */
 
 import React from 'react';
-import { Kubes } from './Kubes';
-import { kubes } from './fixtures';
+import Component from './ConnectDialog';
 
 export default {
   title: 'Teleport/Kubes',
 };
 
-export const Loaded = () => {
-  return <Kubes {...props} attempt={{ status: 'success' }} />;
-};
-
-export const Loading = () => {
-  return <Kubes {...props} attempt={{ status: 'processing' }} />;
-};
-
-export const Failed = () => {
+export const ConnectDialog = () => {
   return (
-    <Kubes
-      {...props}
-      attempt={{ status: 'failed', statusText: 'server error' }}
+    <Component
+      onClose={() => null}
+      user={'sam'}
+      kubeConnectName={'tele.logicoma.dev-prod'}
     />
   );
-};
-
-const props = {
-  kubes: kubes,
-  user: 'sam',
-  showButton: true,
 };
