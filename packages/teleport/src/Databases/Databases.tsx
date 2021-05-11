@@ -26,7 +26,7 @@ import {
 import DatabaseList from './DatabaseList';
 import useDatabases, { State } from './useDatabases';
 import ButtonAdd from './ButtonAdd';
-import AddDatabase from './AddDatabase';
+import AddDialog from './AddDialog';
 
 export default function Container() {
   const ctx = useTeleport();
@@ -41,11 +41,12 @@ export function Databases(props: State) {
     isLeafCluster,
     isEnterprise,
     canCreate,
-    showAddDatabase,
-    hideAddDatabase,
-    isAddDatabaseVisible,
+    showAddDialog,
+    hideAddDialog,
+    isAddDialogVisible,
     user,
     version,
+    clusterId,
   } = props;
 
   return (
@@ -56,7 +57,7 @@ export function Databases(props: State) {
           isLeafCluster={isLeafCluster}
           isEnterprise={isEnterprise}
           canCreate={canCreate}
-          onClick={showAddDatabase}
+          onClick={showAddDialog}
         />
       </FeatureHeader>
       {attempt.status === 'processing' && (
@@ -65,9 +66,11 @@ export function Databases(props: State) {
         </Box>
       )}
       {attempt.status === 'failed' && <Danger>{attempt.statusText}</Danger>}
-      {attempt.status === 'success' && <DatabaseList databases={databases} />}
-      {isAddDatabaseVisible && (
-        <AddDatabase user={user} version={version} onClose={hideAddDatabase} />
+      {attempt.status === 'success' && (
+        <DatabaseList databases={databases} user={user} clusterId={clusterId} />
+      )}
+      {isAddDialogVisible && (
+        <AddDialog user={user} version={version} onClose={hideAddDialog} />
       )}
     </FeatureBox>
   );

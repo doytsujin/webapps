@@ -23,13 +23,13 @@ import { Database } from 'teleport/services/databases';
 export default function useDatabases(ctx: Ctx) {
   const { attempt, run, setAttempt } = useAttempt('processing');
   const { clusterId, isLeafCluster } = useStickyClusterId();
+  const user = ctx.storeUser.state.username;
   const canCreate = ctx.storeUser.getTokenAccess().create;
   const isEnterprise = ctx.isEnterprise;
   const version = ctx.storeUser.state.cluster.authVersion;
-  const user = ctx.storeUser.state.username;
 
   const [databases, setDatabases] = useState<Database[]>([]);
-  const [isAddDatabaseVisible, setIsAddDatabaseVisible] = useState(false);
+  const [isAddDialogVisible, setIsAddDialogVisible] = useState(false);
 
   useEffect(() => {
     run(() => ctx.databaseService.fetchDatabases(clusterId).then(setDatabases));
@@ -44,13 +44,13 @@ export default function useDatabases(ctx: Ctx) {
       );
   };
 
-  const hideAddDatabase = () => {
-    setIsAddDatabaseVisible(false);
+  const hideAddDialog = () => {
+    setIsAddDialogVisible(false);
     fetchDatabases();
   };
 
-  const showAddDatabase = () => {
-    setIsAddDatabaseVisible(true);
+  const showAddDialog = () => {
+    setIsAddDialogVisible(true);
   };
 
   return {
@@ -59,11 +59,12 @@ export default function useDatabases(ctx: Ctx) {
     canCreate,
     isLeafCluster,
     isEnterprise,
-    hideAddDatabase,
-    showAddDatabase,
-    isAddDatabaseVisible,
+    hideAddDialog,
+    showAddDialog,
+    isAddDialogVisible,
     user,
     version,
+    clusterId,
   };
 }
 

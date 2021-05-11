@@ -15,12 +15,18 @@ limitations under the License.
 */
 
 import React from 'react';
-import AddDatabase from './AddDatabase';
+import Component from './ConnectDialog';
 
 export default {
-  title: 'Teleport/Databases/Add',
+  title: 'Teleport/Databases',
 };
 
-export const Manually = () => (
-  <AddDatabase user="yassine" version="6.1.3" onClose={() => null} />
+export const ConnectDialog = () => (
+  <Component
+    user="yassine"
+    dbName="aurora"
+    dbProtocol="postgres"
+    clusterId="im-a-cluster"
+    onClose={() => null}
+  />
 );
