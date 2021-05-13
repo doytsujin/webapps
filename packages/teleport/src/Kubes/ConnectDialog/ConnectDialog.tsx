@@ -62,7 +62,7 @@ function ConnectDialog(props: Props) {
           <Text bold as="span">
             *Step 2
           </Text>
-          {' - Select the kubernetes cluster'}
+          {' - Select the Kubernetes cluster'}
           <TextSelectCopy mt="2" text={`tsh kube login ${kubeConnectName}`} />
         </Box>
         <Box mb={4}>
