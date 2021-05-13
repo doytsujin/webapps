@@ -69,7 +69,7 @@ function ConnectDialog(props: Props) {
           <Text bold as="span">
             Step 3
           </Text>
-          {' - Connect to the kubernetes cluster'}
+          {' - Connect to the Kubernetes cluster'}
           <TextSelectCopy mt="2" text={`kubectl get pods`} />
         </Box>
         <Box>
