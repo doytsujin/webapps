@@ -277,7 +277,7 @@ exports[`kube connect dialogue 1`] = `
             >
               *Step 2
             </span>
-             - Select the kubernetes cluster
+             - Select the Kubernetes cluster
             <div
               class="c9"
             >
@@ -311,7 +311,7 @@ exports[`kube connect dialogue 1`] = `
             >
               Step 3
             </span>
-             - Connect to the kubernetes cluster
+             - Connect to the Kubernetes cluster
             <div
               class="c9"
             >
@@ -340,7 +340,7 @@ exports[`kube connect dialogue 1`] = `
           <div
             class="c13"
           >
-            * Note: To write kubectl configuration to a separate file instead of having your global kubectl configuration modified, run the following command, before running step 2:
+            * Note: To write kubectl configuration to a separate file instead of having your global kubectl configuration modified, run the following command, before running Step 2:
             <div
               class="c9"
             >
