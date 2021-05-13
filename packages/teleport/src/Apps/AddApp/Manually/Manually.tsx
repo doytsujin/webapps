@@ -78,14 +78,12 @@ export default function Manually({ user, version, onClose }: Props) {
             {`* Note: For a self-hosted Teleport version, you may need to update DNS and obtain a TLS certificate for this application.
             Learn more about application access `}
             <Link
-              href={
-                'https://goteleport.com/teleport/docs/application-access/'
-              }
+              href={'https://goteleport.com/teleport/docs/application-access/'}
               target="_blank"
-              mr="2"
             >
               here
             </Link>
+            .
           </Box>
         </Box>
       </DialogContent>
